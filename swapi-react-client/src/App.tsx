@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ApolloProvider } from '@apollo/client/react';
 import React from 'react';
 
-import HomePage from './pages/Home';
+import Home from './pages/Home';
 import { GqlClientConnection } from './services/qgl.client.service';
+import Header from './components/Header';
 
 export default class App extends React.Component  {
 
@@ -14,7 +15,8 @@ export default class App extends React.Component  {
   render()  {
     return (
       <ApolloProvider client={this.gql.client}>
-        <HomePage />
+        <Header />
+        <Home />
       </ApolloProvider>
     )
   }

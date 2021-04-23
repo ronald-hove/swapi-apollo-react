@@ -1,14 +1,17 @@
 import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
+import Loader from '../components/Loader';
+import PersonCard from '../components/PersonCard';
+import Search from '../components/Search';
 
 import { GET_PEOPLE } from '../graphql/queries';
-import { GqlResponse, Person } from '../models/gql.response.model';
+import { GqlResponse} from '../models/gql.response.model';
 
 
-function HomePage() {
+function Home() {
 
-    const [url, setUrl] = useState(() => '')
-    const [people, setPeople] = useState<Person[]>(() => [])
+    const [url, setUrl] = useState<string | undefined>(() => '')
+    const [response, setData] = useState<GqlResponse | undefined>(() => undefined)
 
     const { error, loading, data } = useQuery(GET_PEOPLE, {
         variables: {
@@ -16,11 +19,10 @@ function HomePage() {
         }
     })
 
-    const response: GqlResponse = data; 
-
     useEffect(() => {
         if (data) {
-            setPeople(response.people.results)
+            setData(data)
+            // window.scroll(0,0)
         }
         if (error) {
             console.log('HomePage >> failed to fetch people', error)
@@ -33,8 +35,8 @@ function HomePage() {
      *
      */
     function nextPage () {
-        if (response) {
-            setUrl(response.people.next);
+        if (data) {
+            setUrl(response?.people?.next);
         }
     }
 
@@ -44,26 +46,43 @@ function HomePage() {
      *
      */
     function PrevPage () {
-        if (response) {
-            const url = response.people.previous;
+        if (data) {
+            const url = response?.people?.previous;
             setUrl(url ? url : "");
         }
     }
 
     return (
-        <div className="container my-5">
-            {people.map((person, i) => {
-                return <p key={i}> {person.name}</p>
-            })}
+        <div className="container mb-5">
+
+            <Search/>
             
-            { response.people.next !== null &&
-                <button className="btn btn-primary mr-3" onClick={nextPage}>Next</button>            
+            {response?.people?.results.map((person, i) => {
+                return <div key={i}>
+                    <PersonCard 
+                        name={person.name}
+                        height={person.height}
+                        mass={person.mass}
+                        gender={person.gender}
+                        homeworld={person.homeworld}
+                    />
+                </div>
+            })}
+
+            {loading &&
+                <Loader />
             }
-            { response.people.previous !== null &&
-                <button className="btn btn-primary" onClick={PrevPage}>Previous</button>
-            }
+
+            <div className="mt-3">
+                { response?.people?.next !== null &&
+                    <button className="btn btn-primary mr-3" onClick={nextPage}>Next</button>            
+                }
+                { response?.people?.previous !== null &&
+                    <button className="btn btn-primary" onClick={PrevPage}>Previous</button>
+                }
+            </div>
         </div>
     );
 }
 
-export default HomePage;
+export default Home;
