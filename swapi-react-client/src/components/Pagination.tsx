@@ -17,15 +17,9 @@ const Pagination = ({ troopersPerPage, totalTroopers, paginate, response, nextPa
   }
 
   return (
-    <div className="row">
-        <div className="col">
-          {response?.people?.next !== null &&
-              <button className="btn btn-primary mr-3" onClick={() => nextPage(response?.people?.next)}>Next</button>            
-          }
-          { response?.people?.previous !== null &&
-              <button className="btn btn-primary" onClick={() => PrevPage(response?.people?.previous)}>Previous</button>
-          }
-        </div>
+   < div>
+      <div className="row">
+        <div className="col"></div>
         {response?.people?.next !== null && 
           <div className="col-auto">
             <nav>
@@ -44,8 +38,23 @@ const Pagination = ({ troopersPerPage, totalTroopers, paginate, response, nextPa
             </nav>
           </div>
         }
+        <div className="col"></div>
+      </div>
 
+    <div className="row">
+      <div className="col"></div>
+      <div className="col-auto">
+          {response?.people?.next !== null &&
+              <button className="btn btn-primary mr-3" onClick={() => nextPage(response?.people?.next)}>Next</button>            
+          }
+          { response?.people?.previous !== null &&
+              <button className="btn btn-primary" onClick={() => PrevPage(response?.people?.previous)}>Previous</button>
+          }
+        </div>
+      <div className="col"></div>
     </div>
+   </div>
+
   );
 };
 
