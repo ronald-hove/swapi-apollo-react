@@ -1,3 +1,4 @@
+import { SwapiResponse } from './../models/swapi-response.model';
 import { Swapi } from './swapi.service';
 
 export class Resolver {
@@ -14,7 +15,8 @@ export class Resolver {
     getPeopleResolver() {
         const peopleResolver = {
             Query: {
-                people: async (parent: any, args: any, context: any, info: any) => {
+                people: async (parent: any, args: any, context: any, info: any): Promise<SwapiResponse> => {
+                    // Get home world data and map it onto people arr     
                     return await this.swapi.queryPeople(args.url);
                 },
                 person: async (parent: any, args: any, context: any, info: any) => {

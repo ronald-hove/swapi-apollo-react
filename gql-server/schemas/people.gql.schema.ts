@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-express';
 
 export const peopleTypeDef = gql`
+
     type Person {
         name:       String
         height:     String
@@ -18,6 +19,7 @@ export const peopleTypeDef = gql`
         created:    String
         edited:     String
         url:        String
+        homeworld_name: String
     }
 
     type Swapi {

@@ -1,15 +1,21 @@
 import React from 'react'
 
 
-function PersonCard (props: any) {
+function PersonCard ({name, height, mass, gender, homeworld, url, cardClicked}: any) {
+
+    const onCardClicked = (e: any, url: string) => {
+      cardClicked(url)
+      e.preventDefault();
+    } 
+
     return (
-        <div className="card shadow-sm  mb-2">
+        <div className="card shadow-sm  mb-2" onClick={e => onCardClicked(e, url)}>
         <div className="card-body">
-          <p>Trooper: {props.name}</p>
-          <p>Heigh: {props.height}</p>
-          <p>Mass: {props.mass}</p>
-          <p>Gender: {props.gender}</p>
-          <p>HomeWorld: {props.homeworld}</p>
+          <p>SW Character: {name}</p>
+          <p>Heigh: {height}</p>
+          <p>Mass: {mass}</p>
+          <p>Gender: {gender}</p>
+          <p>HomeWorld: {homeworld}</p>
         </div>
       </div>
     )

@@ -4,6 +4,10 @@ export interface GqlResponse {
     people: PeopleData;
 }
 
+export interface GqlPersonResponse {
+    person: Person;
+}
+
 export interface PeopleData {
     count:    number;
     next:     string;
@@ -16,7 +20,7 @@ export interface Person {
     height:    string;
     mass:      string;
     gender:    Gender;
-    homeworld: string;
+    homeworld_name: string;
     url:       string;
 }
 
