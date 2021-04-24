@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts",
-    "build": "tsc --project ./"
+    "start": "node dist/index.js",
+    "build": "tsc --project ./",
+    "deploy:heroku": "git push heroku master",
+    "log:heroku": "heroku logs --tail"
   },
   "author": "",
   "license": "ISC",

@@ -14,7 +14,7 @@ export class GqlClientConnection {
 
     link = from([
         this.errorLink,
-        new HttpLink({ uri: 'http://localhost:5000/graphql' })
+        new HttpLink({ uri: 'https://swapi-gql-heroku.herokuapp.com/graphql' })
     ])
 
     client = new ApolloClient({
